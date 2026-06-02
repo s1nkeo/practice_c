@@ -3,7 +3,7 @@
 int print_converted(unsigned n, unsigned base) {
     int i = 0;
     unsigned arr[32];
-    while (n > base) {
+    while (n > 0) {
         arr[i] = n % base;
         n = n / base;
         i++;

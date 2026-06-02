@@ -1,8 +1,12 @@
 #include <stdio.h>
+#include <assert.h>
 
 int print_converted(unsigned n, unsigned base) {
     int i = 0;
     unsigned arr[32];
+
+    assert(base > 1 && base < 11);
+
     while (n > 0) {
         arr[i] = n % base;
         n = n / base;
@@ -16,8 +20,10 @@ int print_converted(unsigned n, unsigned base) {
     
 int main() {
     unsigned n, base;
-    
-    scanf("%u %u", &n, &base);
+    int res;
+
+    res = scanf("%u %u", &n, &base);
+    assert(res == 2);
     print_converted(n, base);
            
     return 0;

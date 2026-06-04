@@ -3,28 +3,30 @@
 
 int factorial(int n) {
 	int fact = 1;
-	int i = 1;
 
-	while (i <= n) {
-		fact *= i;
-		i++;
+	while (n > 1) {
+		fact *= n;
+		n--;
 	}
 	return fact;
 }
 
-int system_fact(int n) {
-	int i;
+void system_fact(int n) {
+	int i = 1;
 
 	while (factorial(i) <= n)
 		i++;
 	i--;
+	
+	int fact = factorial(i);
 
 	while (i >= 1) {
-		int fact = factorial(i);
 
 		printf("%d.", n / fact);
 
 		n = n % fact;
+		
+		fact = fact / i;
 
 		i--;
 	}

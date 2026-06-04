@@ -1,49 +1,50 @@
 #include <stdio.h>
 #include <assert.h>
 
-#if 0
-int iabs(int x) {
-    return (x < 0) ? -x : x;
-}
+long long egcd(long long x, long long y, long long *coef_x, long long *coef_y) {
+	long long old_r = x, r = y;
+	long long old_a = 1, a = 0;
+	long long old_b = 0, b = 1;
 
-int eu_mod (int x, int y) {
-    int r;
-    assert(y != 0);
-    r = x % y;
-    if (r < 0) r += iabs(y);
-    return r;
-}
-#endif
+	while (r != 0) {
+		long long q = old_r / r;
+		
+		long long tmp;
+		tmp = r;
+		r = old_r - q * r;
+		old_r = tmp;
 
-long long egcd(long long x, long long y, long long *a, long long *b) {
-    if (y == 0) {
-        *a = 1;
-        *b = 0;
-        return x;
-    }
-    
-    long long a1, b1;
-    long long d = egcd(y, x % y, &a1, &b1);
-    
-    *a = b1;
-    *b = a1 - (x / y) * b1;
-    
-    return d;
+		tmp = a;
+		a = old_a - q * a;
+		old_a = tmp;
+
+		tmp = b;
+		b = old_b - q * b;
+		old_b = tmp;
+	}
+
+	if (old_r < 0) {
+		old_r = -old_r;
+		old_a = -old_a;
+		old_b = -old_b;
+	}
+
+	*coef_x = old_a;
+	*coef_y = old_b;
+
+	return old_r;
 }
 
 int main() {
-    long long x, y, a, b;
-    scanf("%lld %lld", &x, &y);
+	long long x, y, a, b, d;
+
+	int res = scanf("%lld %lld", &x, &y);
+	assert(res == 2);
     
-    long long d = egcd(x, y, &a, &b);
+	d = egcd(x, y, &a, &b);
+	assert(d == a * x + b * y);
     
-    if (d < 0) {
-        d = -d;
-        a = -a;
-        b = -b;
-    }
+	printf("%lld %lld %lld", a, b, d);
     
-    printf("%lld %lld %lld", a, b, d);
-    
-     return 0;
+	return 0;
 }

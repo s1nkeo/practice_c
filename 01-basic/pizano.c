@@ -2,55 +2,37 @@
 #include <stdlib.h>
 #include <assert.h>
 
-int get_pisano_period(unsigned m) {
-	unsigned first = 0;
-	unsigned second = 1;
-	unsigned tmp;
-	unsigned period = 0;
-
-	assert(m > 0);
-
-	do {
-			tmp = second;
-			second = (first + second) % m;
-			first = tmp;
-			period++;
-	} while (!(first == 0 && second == 1));
-	return period;
+unsigned long long fib_mod(unsigned long long n, unsigned m) {
+    unsigned long long first = 0ull, second = 1ull; int idx;
+    unsigned long long tmp;
+    if (n == 0) return 0ull;
+    for (idx = 2; idx <= n; ++idx) {
+        tmp = second;
+        second = ((second % m) + (first % m)) % m;
+        first = tmp;
+    }
+    return second;
 }
 
-int fib_mod(unsigned long long n, unsigned m) {
-	unsigned long long first = 0ull, second = 1ull;
-        int idx;
-
-	assert(m > 0);
-
-	if (m == 1) 
-		return 0;
-
-	n = n % get_pisano_period(m);
-
-        if (n == 0)
-                return 0ull;
-
-        for (idx = 2; idx <= n; ++idx) {
-                unsigned long long tmp = second;
-                second = (second + first) % m;
-                first = tmp;
-        }
-        return second;
+int get_pisano_period(long long m) {
+    long long first = 0, second = 1, tmp; int idx = 0;
+    do {
+        tmp = second;
+        second = (first + second) % m;
+        first = tmp;
+        idx++;
+    } while ((first != 0) || (second != 1));
+    return idx;
 }
 
 int main() {
-	unsigned n, m;
-        int res;
+    long long x, m, fib;
+    int res;
 
-        res = scanf("%u %u", &n, &m);
-        if (res != 2) {
-                printf("%s\n", "Wrong input");
-                abort();
-        }
-        printf("%u %u\n", fib_mod(n, m), get_pisano_period(m));
-
-        return 0;
+    res = scanf("%lld%lld", &x, &m);
+    assert(res == 2);
+    res = get_pisano_period(m);
+    printf("%lld %d\n", fib_mod(x % res, m), res);
+    return 0;
 }
+

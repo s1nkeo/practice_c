@@ -21,7 +21,7 @@ int get_pisano_period(long long m) {
         second = (first + second) % m;
         first = tmp;
         idx++;
-    } while ((first != 0) || (second != 1));
+    } while ((first != 0) && (second != 1));
     return idx;
 }
 

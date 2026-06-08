@@ -5,7 +5,9 @@
 int sieve(unsigned n) {
 	int res = 0;
 
-	char *s = malloc(n * sizeof(char));
+	if (n < 2) return 0;
+
+	char *s = malloc((n + 1) * sizeof(char));
 	if (s == NULL) {
 		printf("Allocation error");
 		abort();
@@ -17,16 +19,16 @@ int sieve(unsigned n) {
 	
 	s[0] = s[1] = 1;
 
-	for (int j = 2; j * j <= n; j++) {
-		if (s[j] == 0) {
-			for(int k = j * j; k <= n; k += j) {
+	for (unsigned j = 2; j * j <= n; j++) {
+		if (!s[j]) {
+			for(unsigned k = j * j; k <= n; k += j) {
 				s[k] = 1;
 			}
 		}
 	}
 	
-	for(int i = 2; i <= n; i++) {
-		if (s[i] == 0)
+	for(unsigned i = 2; i <= n; i++) {
+		if (!s[i])
 			res++;
 	}
 
@@ -36,9 +38,10 @@ int sieve(unsigned n) {
 }
 
 int main() {
-	int n, result;
+	unsigned n;
+       	int result;
 
-	result = scanf("%d", &n);
+	result = scanf("%u", &n);
 	assert(result == 1);
 
 	printf("%d\n", sieve(n));

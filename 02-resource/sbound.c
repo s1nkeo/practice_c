@@ -28,6 +28,7 @@ void fill_sieve(struct sieve_t *sv) {
 		}
 	}
 }
+
 int nth_prime(struct sieve_t *sv, int N) {
 	int result;
 	int count = 0;
@@ -36,11 +37,11 @@ int nth_prime(struct sieve_t *sv, int N) {
 		if (sv->s[i] == 0) {
 			count++;
 			if (count == N) {
-				return result = i;
+				return i;
 			}
 		}
 	}
-	return result;
+	return -1;
 		
 }
 

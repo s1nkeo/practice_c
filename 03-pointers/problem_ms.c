@@ -7,25 +7,25 @@
 
 void merge(int *arr, int l, int m, int r) {
 	int tmp[r - l + 1];
-    int i = l;
-    int j = m + 1;
-    int k = 0;
-    while (i <= m && j <= r) {
-        if (arr[i] <= arr[j]) {
-            tmp[k++] = arr[i++];
-        } else {
-            tmp[k++] = arr[j++];
-        }
-    }
-    while (i <= m) {
-    tmp[k++] = arr[i++];
-    }
-    while (j <= r) {
-    tmp[k++] = arr[j++];
-    }
-    for (int t = 0; t < k; t++) {
-    arr[l + t] = tmp[t];
-    }
+    	int i = l;
+    	int j = m + 1;
+    	int k = 0;
+    	while (i <= m && j <= r) {
+        	if (arr[i] <= arr[j]) {
+            		tmp[k++] = arr[i++];
+        	} else {
+            		tmp[k++] = arr[j++];
+        	}
+    	}
+    	while (i <= m) {
+    		tmp[k++] = arr[i++];
+    	}
+    	while (j <= r) {
+    		tmp[k++] = arr[j++];
+    	}	
+    	for (int t = 0; t < k; t++) {
+    		arr[l + t] = tmp[t];
+    	}
 }
 
 void merge_sort_imp(int *arr, int l, int r) {
